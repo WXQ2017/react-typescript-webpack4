@@ -6,6 +6,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
+const HotModuleReplacePlgun = require("webpack/lib/HotModuleReplacementPlugin");
+
 const env_config = {
   DEV: "development",
   TEST: "production",
@@ -14,17 +16,17 @@ const env_config = {
 const isEnvDevelopment = env_config[process.env.env] === "development";
 const isEnvProduction = env_config[process.env.env] === "production";
 
-console.log(isEnvDevelopment, isEnvProduction)
+console.log(isEnvDevelopment, isEnvProduction, process.argv.pop());
 const publicPath = isEnvProduction ? "/" : isEnvDevelopment && "/";
 
 const shouldUseSourceMap = false;
 module.exports = {
   // mode: isEnvProduction ? "production" : isEnvDevelopment && "development",
   mode: "development",
-  entry: { app: "./src/app/app.tsx" },
+  entry: { app: ["react-hot-loader/patch", "./src/app/index.tsx"]},
   output: {
     filename: "bundle.js",
-    path: __dirname + "/dist/"
+    path: __dirname + "/dist"
   },
   devServer: {
     // redirect
@@ -56,8 +58,65 @@ module.exports = {
         exclude: /node_modules/,
         loader: "awesome-typescript-loader"
       },
-      // TODO
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+      {
+        test: /\.(css|scss|sass)$/,
+        exclude: /node_modules/,
+        include: path.resolve(__dirname, "src"),
+        loaders: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true, //资源映射
+              modules: true, //是否允许模块 // import styles from "./slide-menu.scss"; 以对象的形式展示
+              importLoaders: 20
+            }
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true,
+              modules: true
+            }
+          }
+        ]
+      },
+      {
+        ///处理html
+        test: /\.html?/,
+        exclude: /node_modules/,
+        include: path.resolve(__dirname, "public"),
+        use: {
+          loader: "html-loader",
+          options: {
+            minimize: true //压缩html代码
+          }
+        }
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192,
+              name: "images/[name].[ext]"
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192,
+              name: "fonts/[name].[ext]"
+            }
+          }
+        ]
+      }
     ]
   },
   externals: {
@@ -106,8 +165,11 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "styles/[name]_[hash].css"
+      filename: "styles/[name]_[hash].css",
+      chunkFilename: "[id].css"
     }),
+    new HotModuleReplacePlgun(),
+    // new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: "index.html", // 生成的html文件名
       template: "./public/index.html", // 依据的模板

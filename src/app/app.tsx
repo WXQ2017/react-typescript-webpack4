@@ -1,16 +1,16 @@
 import React from "react";
 import * as ReactDOM from "react-dom";
-
+import { Switch, Route, Redirect } from "react-router";
 import { Layout } from "./pages/layout/layout";
 
-ReactDOM.render(
-  <Layout compiler="TypeScript" framework="React" />,
-  document.getElementById("app")
-);
-
-// export interface AppProps { compiler: string; framework: string; }
-// export class App extends React.Component<AppProps> {
-//   render() {
-//       return <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>;
-//   }
-// }
+export default class App extends React.Component {
+  render() {
+    return (
+      <Switch>
+        {/*配置默认路由*/}
+        <Route exact path="/" render={() => <Redirect to="/a" />} />
+        <Route path="/a" component={Layout} />
+      </Switch>
+    );
+  }
+}
