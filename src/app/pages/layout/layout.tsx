@@ -1,18 +1,19 @@
 import * as React from "react";
 import Slide from "../../components/slide-menu/slide-menu";
+import Button from "antd/es/button";
 
 interface LayoutProps {
   compiler: string;
   framework: string;
 }
 
-export class Layout extends React.Component<LayoutProps, {}> {
+export default class Layout extends React.Component<LayoutProps, {}> {
   render() {
     return (
       <div>
         <Slide />
         <h1>
-          Hello from {this.props.compiler} and {this.props.framework}!
+          Hello world!
         </h1>
       </div>
     );

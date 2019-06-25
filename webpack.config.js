@@ -23,7 +23,7 @@ const shouldUseSourceMap = false;
 module.exports = {
   // mode: isEnvProduction ? "production" : isEnvDevelopment && "development",
   mode: "development",
-  entry: { app: ["react-hot-loader/patch", "./src/app/index.tsx"]},
+  entry: { app: ["react-hot-loader/patch", "./src/app/index.tsx"] },
   output: {
     filename: "bundle.js",
     path: __dirname + "/dist"
@@ -56,12 +56,18 @@ module.exports = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        loader: "awesome-typescript-loader"
+        loader: "awesome-typescript-loader",
+        query: {
+          presets: ["env", "react"],
+          plugins: [
+            ["import", { libraryName: "antd", style: "css" }] // antd按需加载
+          ]
+        }
       },
+
       {
-        test: /\.(css|scss|sass)$/,
+        test: /\.(css|less)$/,
         exclude: /node_modules/,
-        include: path.resolve(__dirname, "src"),
         loaders: [
           MiniCssExtractPlugin.loader,
           {
@@ -73,7 +79,7 @@ module.exports = {
             }
           },
           {
-            loader: "sass-loader",
+            loader: "less-loader",
             options: {
               sourceMap: true,
               modules: true
@@ -81,6 +87,51 @@ module.exports = {
           }
         ]
       },
+      // 针对antd
+      {
+        test: /\.css$/,
+        include: /node_modules/,
+        exclude: path.resolve(__dirname, "src"),
+        loaders: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: false,
+              modules: false,
+              importLoaders: 2
+            }
+          },
+          {
+            loader: "less-loader"
+          }
+        ]
+      },
+      // {
+      //   test: /\.(css|scss|sass)$/,
+      //   // exclude: /node_modules/,
+      //   // include: path.resolve(__dirname, "src"),
+      //   loaders: [
+      //     MiniCssExtractPlugin.loader,
+      //     {
+      //       loader: "css-loader",
+      //       options: {
+      //         sourceMap: true, //资源映射
+      //         modules: true, //是否允许模块 // import styles from "./slide-menu.scss"; 以对象的形式展示
+      //         importLoaders: 20
+      //       }
+      //     },
+      //     {
+      //       loader: "sass-loader",
+      //       options: {
+      //         sourceMap: true,
+      //         modules: true
+      //       }
+      //     }
+      //   ]
+      // },
       {
         ///处理html
         test: /\.html?/,
