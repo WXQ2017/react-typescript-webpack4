@@ -74,7 +74,7 @@ module.exports = {
             loader: "css-loader",
             options: {
               sourceMap: true, //资源映射
-              modules: true, //是否允许模块 // import styles from "./slide-menu.scss"; 以对象的形式展示
+              modules: false, //是否允许模块 // import styles from "./slide-menu.scss"; 以对象的形式展示
               importLoaders: 20
             }
           },
@@ -82,7 +82,7 @@ module.exports = {
             loader: "less-loader",
             options: {
               sourceMap: true,
-              modules: true
+              modules: false
             }
           }
         ]
@@ -97,12 +97,7 @@ module.exports = {
             loader: "style-loader"
           },
           {
-            loader: "css-loader",
-            options: {
-              sourceMap: false,
-              modules: false,
-              importLoaders: 2
-            }
+            loader: "css-loader"
           },
           {
             loader: "less-loader"

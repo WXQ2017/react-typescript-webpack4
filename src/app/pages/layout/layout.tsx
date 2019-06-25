@@ -1,21 +1,27 @@
 import * as React from "react";
 import Slide from "../../components/slide-menu/slide-menu";
-import Button from "antd/es/button";
+import { Layout } from "antd";
+import "./layout.less";
+const { Header, Footer, Sider, Content } = Layout;
 
 interface LayoutProps {
   compiler: string;
   framework: string;
 }
 
-export default class Layout extends React.Component<LayoutProps, {}> {
+export default class LayoutPage extends React.Component<LayoutProps, {}> {
   render() {
     return (
-      <div>
-        <Slide />
-        <h1>
-          Hello world!
-        </h1>
-      </div>
+      <Layout className="full-page">
+        <Sider>
+          <Slide />
+        </Sider>
+        <Layout>
+          <Header style={{ background: '#fff', padding: 0 }}>Header</Header>
+          <Content />
+          <Footer>Footer</Footer>
+        </Layout>
+      </Layout>
     );
   }
 }

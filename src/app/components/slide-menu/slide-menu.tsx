@@ -7,7 +7,7 @@ const { SubMenu } = Menu;
 interface SlideProps {
   //
 }
-export default class Slide extends React.Component<SlideProps, any> {
+export default class SlideMenu extends React.Component<SlideProps, any> {
   constructor(props: any) {
     super(props);
   }
@@ -20,30 +20,28 @@ export default class Slide extends React.Component<SlideProps, any> {
   render() {
     return (
       <div>
+        <div style={{ height: 64 }}>logo</div>
         <Menu
-          style={{ width: 256 }}
           defaultSelectedKeys={["1"]}
           defaultOpenKeys={["sub1"]}
           mode="inline"
+          theme="dark"
         >
           <SubMenu
             key="sub1"
             title={
               <span>
                 <Icon type="mail" />
-                <span>Navigation One</span>
+                <span>UI</span>
               </span>
             }
           >
-            <Menu.ItemGroup key="g1" title="Item 1">
-              <Menu.Item key="1">Option 1</Menu.Item>
-              <Menu.Item key="2">Option 2</Menu.Item>
-            </Menu.ItemGroup>
-            <Menu.ItemGroup key="g2" title="Item 2">
-              <Menu.Item key="3">Option 3</Menu.Item>
-              <Menu.Item key="4">Option 4</Menu.Item>
+            <Menu.ItemGroup key="g1" title="Table">
+              <Menu.Item key="1">按钮</Menu.Item>
+              <Menu.Item key="2">表单</Menu.Item>
             </Menu.ItemGroup>
           </SubMenu>
+          <Menu.Item key="3">Form</Menu.Item>
         </Menu>
       </div>
     );
