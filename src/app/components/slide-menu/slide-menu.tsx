@@ -21,7 +21,7 @@ export default class SlideMenu extends React.Component<SlideProps, any> {
   render() {
     return (
       <div>
-        <div className="head-logo">SHUWREN</div>
+        <div className="head-logo">Trial.Link</div>
 
         <Menu
           defaultActive="2"
