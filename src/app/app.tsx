@@ -1,9 +1,8 @@
 import React from "react";
 import * as ReactDOM from "react-dom";
-import Router from "./index.router";
-
+import RRouter from "./index.router";
 export default class App extends React.Component {
   render() {
-    return <Router />;
+    return <RRouter />;
   }
 }

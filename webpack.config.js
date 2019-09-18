@@ -64,69 +64,74 @@ module.exports = {
           ]
         }
       },
-
-      {
-        test: /\.(css|less)$/,
-        exclude: /node_modules/,
-        loaders: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: "css-loader",
-            options: {
-              sourceMap: true, //资源映射
-              modules: false, //是否允许模块 // import styles from "./slide-menu.scss"; 以对象的形式展示
-              importLoaders: 20
-            }
-          },
-          {
-            loader: "less-loader",
-            options: {
-              sourceMap: true,
-              modules: false
-            }
-          }
-        ]
-      },
-      // 针对antd
-      {
-        test: /\.css$/,
-        include: /node_modules/,
-        exclude: path.resolve(__dirname, "src"),
-        loaders: [
-          {
-            loader: "style-loader"
-          },
-          {
-            loader: "css-loader"
-          },
-          {
-            loader: "less-loader"
-          }
-        ]
-      },
       // {
-      //   test: /\.(css|scss|sass)$/,
-      //   // exclude: /node_modules/,
-      //   // include: path.resolve(__dirname, "src"),
+      //   test: /\.(css|less)$/,
+      //   exclude: /node_modules/,
       //   loaders: [
       //     MiniCssExtractPlugin.loader,
       //     {
       //       loader: "css-loader",
       //       options: {
       //         sourceMap: true, //资源映射
-      //         modules: true, //是否允许模块 // import styles from "./slide-menu.scss"; 以对象的形式展示
+      //         modules: false, //是否允许模块 // import styles from "./slide-menu.scss"; 以对象的形式展示
       //         importLoaders: 20
       //       }
       //     },
       //     {
-      //       loader: "sass-loader",
+      //       loader: "less-loader",
       //       options: {
       //         sourceMap: true,
-      //         modules: true
+      //         modules: false
       //       }
       //     }
       //   ]
       // },
+
+      // 针对antd
+      // {
+      //   test: /\.css$/,
+      //   include: /node_modules/,
+      //   exclude: path.resolve(__dirname, "src"),
+      //   loaders: [
+      //     {
+      //       loader: "style-loader"
+      //     },
+      //     {
+      //       loader: "css-loader"
+      //     },
+      //     {
+      //       loader: "less-loader"
+      //     }
+      //   ]
+      // },
+      {
+        test: /\.(css|scss)$/,
+        exclude: /node_modules/,
+        include: path.resolve(__dirname, "src"),
+        loaders: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true, //资源映射
+
+              importLoaders: 20
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins: [require("autoprefixer")]
+            }
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
+      },
       {
         ///处理html
         test: /\.html?/,

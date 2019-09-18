@@ -1,28 +1,33 @@
-import { Switch, Route, Redirect } from "react-router";
+import { Redirect, browserHistory } from "react-router";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React from "react";
-import Layout from "./pages/layout/layout";
+import LayoutPage from "./pages/layout/layout";
 import SystemUsers from "./pages/system-users/system-users";
+import GcpAssociationListPage from "./pages/gcp-association-list/gcp-association-list";
 // import * as PageLazyLoading from "./routes";
 
-export default class Router extends React.Component {
+// export default () => (
+//   <Switch history={hashHistory}>
+//     <Route path="/" component={Layout}>
+//       <IndexRoute component={Layout}></IndexRoute>
+//       <Route path="/gcpmgr" component={GcpAssociationListPage} />
+//     </Route>
+//   </Switch>
+// );
+
+export default class RRouter extends React.Component {
   render() {
     return (
-      <Switch>
-        {/*配置默认路由*/}
-        <Route exact path="/" render={() => <Redirect to="/b" />}>
-          <Route path={`/system/userManage`} component={SystemUsers} />
-          <Route path="/b" component={Layout} />
-        </Route>
-      </Switch>
-      // <Switch history={hashHistory}>
-      //   <Route path="/" component={Layout}>
-      //     <IndexRoute component={Layout} />
-      //     {/** *系统设置 开始 */}
-      //     <Route path={`/system/userManage`} component={SystemUsers} />
-      //     {/** *系统设置 结束 */}
-      //   </Route>
-      //   <Route path="*" component={Layout} />
-      // </Switch>
+      <Router history={browserHistory}>
+        <Switch>
+          <Route path="/">
+            <LayoutPage exact path="/" component={LayoutPage}>
+              <Route path="/gcpmgr" component={GcpAssociationListPage} />
+            </LayoutPage>
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </Router>
     );
   }
 }

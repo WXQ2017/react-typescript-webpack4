@@ -1,9 +1,7 @@
 import React from "react";
-import Button from "antd/es/button";
-// import styles from "./slide-menu.scss";
-import { Menu, Icon } from "antd";
-const { SubMenu } = Menu;
-
+import { Layout, Menu } from "element-react";
+import { Link } from "react-router-dom";
+import "./slide-menu.scss";
 interface SlideProps {
   //
 }
@@ -11,8 +9,11 @@ export default class SlideMenu extends React.Component<SlideProps, any> {
   constructor(props: any) {
     super(props);
   }
-  public onOpen() {
-    //
+  public onSelect(
+    index?: string | undefined,
+    indexPath?: string[] | undefined
+  ) {
+    console.log(index, indexPath);
   }
   public onClose() {
     //
@@ -20,28 +21,32 @@ export default class SlideMenu extends React.Component<SlideProps, any> {
   render() {
     return (
       <div>
-        <div style={{ height: 64 }}>logo</div>
+        <div className="head-logo">SHUWREN</div>
+
         <Menu
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
-          mode="inline"
+          defaultActive="2"
+          className="el-menu-vertical-demo"
           theme="dark"
+          style={{ paddingTop: "10px" }}
+          onSelect={this.onSelect.bind(this)}
         >
-          <SubMenu
-            key="sub1"
-            title={
-              <span>
-                <Icon type="mail" />
-                <span>UI</span>
-              </span>
-            }
-          >
-            <Menu.ItemGroup key="g1" title="Table">
-              <Menu.Item key="1">按钮</Menu.Item>
-              <Menu.Item key="2">表单</Menu.Item>
-            </Menu.ItemGroup>
-          </SubMenu>
-          <Menu.Item key="3">Form</Menu.Item>
+          <Link to="gcpmgr" key="gcpmgr">
+            <Menu.Item index="gcpmgr">协会列表</Menu.Item>
+          </Link>
+          <Link to="gcpmgr_sites" key="gcpmgr_sites">
+            <Menu.Item index="gcpmgr_sites">中心列表</Menu.Item>
+          </Link>
+          <Menu.Item index="3">申办方列表</Menu.Item>
+          <Menu.Item index="4">用户管理</Menu.Item>
+          <Menu.Item index="5">角色类型</Menu.Item>
+          <Menu.Item index="6">匹配审核</Menu.Item>
+          <Menu.Item index="7">招募审核</Menu.Item>
+          <Menu.Item index="8">问卷审核</Menu.Item>
+          <Menu.Item index="9">问卷列表</Menu.Item>
+          <Menu.Item index="10">中心轮播</Menu.Item>
+          <Menu.Item index="11">反馈列表</Menu.Item>
+          <Menu.Item index="12">合作需求</Menu.Item>
+          <Menu.Item index="13">日志管理</Menu.Item>
         </Menu>
       </div>
     );
