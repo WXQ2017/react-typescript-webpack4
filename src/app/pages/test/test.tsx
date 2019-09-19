@@ -1,11 +1,11 @@
 import React from "react";
-import Screenlock from "../../components/screen-lock/screen-lock";
+import Panel from "../../../common/component/panel/panel";
 
 export default class TestPage extends React.Component {
   render() {
     return (
       <div>
-        <Screenlock />
+        <Panel />
       </div>
     );
   }

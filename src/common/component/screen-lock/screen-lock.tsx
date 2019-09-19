@@ -1,9 +1,8 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import PatternLock from "../../components/pattern-lock/pattern-lock";
-import { Clock } from "../clock/clock";
+import PatternLock from "../pattern-lock/pattern-lock";
+import Clock from "../clock/clock";
 import Mask from "../mask/mask";
-import { Button } from "element-react";
 import CSSAnimate from "../css-animate/css-animate";
 import "./screen-lock.scss";
 

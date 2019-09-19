@@ -1,5 +1,5 @@
 import React from "react";
-import Screenlock from "../../../app/components/screen-lock/screen-lock";
+import Screenlock from "../../component/screen-lock/screen-lock";
 
 export default class SystemLock extends React.Component {
   render() {

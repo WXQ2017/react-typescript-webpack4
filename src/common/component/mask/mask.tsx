@@ -2,8 +2,6 @@ import React, { PureComponent } from "react";
 import ReactDOM from "react-dom";
 import cssAnimate, { isCssAnimationSupported } from "css-animation";
 import cx from "classnames";
-// import Icon from "../Icon";
-// import $$ from "cmn-utils";
 interface Props {
   visible?: boolean;
   getContainer?: any;
@@ -87,7 +85,9 @@ export default class Mask extends PureComponent<Props> {
           className={cx(prefixCls, "animated", "animated-short", className)}
           onClick={maskClosable ? this.onClick : noop}
         >
-          {closable ? <i className="el-close" onClick={this.onClick} /> : null}
+          {closable ? (
+            <i className="el-icon-close" onClick={this.onClick} />
+          ) : null}
           {children}
         </div>,
         this.container

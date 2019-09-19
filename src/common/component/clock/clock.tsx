@@ -16,7 +16,7 @@ interface Props {}
 /**
  * 时钟组件
  */
-export class Clock extends PureComponent<
+export default class Clock extends PureComponent<
   {},
   {
     date: string;
