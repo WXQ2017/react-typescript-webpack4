@@ -58,10 +58,10 @@ module.exports = {
         exclude: /node_modules/,
         loader: "awesome-typescript-loader",
         query: {
-          presets: ["env", "react"],
-          plugins: [
-            ["import", { libraryName: "antd", style: "css" }] // antd按需加载
-          ]
+          presets: ["env", "react"]
+          // plugins: [
+          //   ["import", { libraryName: "antd", style: "css" }] // antd按需加载
+          // ]
         }
       },
       // {
