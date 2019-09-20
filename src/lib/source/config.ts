@@ -112,7 +112,6 @@ export interface IConfigAdapter {
   env: Env;
   readonly hosts: IHosts;
   readonly domain: string;
-
   curSite: ISite;
   localSite: string;
   getApi(method: string, apiName: string): string;
@@ -134,8 +133,7 @@ export class ConfigAdapter implements IConfigAdapter {
     this.curSite = !!this.serverConfig.sites
       ? this.serverConfig.sites[this.env]
       : { local: window.location.host, remote: window.location.host };
-    debugger;
-    this.domain = this.curSite.remote || "";
+    this.domain = this.curSite && this.curSite.remote;
     this.localSite =
       location.protocol +
       "//" +

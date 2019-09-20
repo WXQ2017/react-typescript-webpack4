@@ -1,6 +1,7 @@
 "use strict";
 // import config from "./config/config";
 const path = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
@@ -20,6 +21,12 @@ console.log(isEnvDevelopment, isEnvProduction, process.argv.pop());
 const publicPath = isEnvProduction ? "/" : isEnvDevelopment && "/";
 
 const shouldUseSourceMap = false;
+
+// 读取配置文件
+const fs = require("fs");
+const file = path.resolve(__dirname, "config/site.json");
+const SITE_INFO = JSON.parse(fs.readFileSync(file));
+
 module.exports = {
   // mode: isEnvProduction ? "production" : isEnvDevelopment && "development",
   mode: "development",
@@ -232,6 +239,8 @@ module.exports = {
         collapseWhitespace: true, //删除html中的空白符
         removeAttributeQuotes: true //删除html元素中属性的引号
       },
+      PUBLIC_PATH: JSON.stringify(publicPath),
+      SITE_INFO,
       // chunksSortMode: "dependency" //按dependency的顺序引入
       chunksSortMode: "none"
     }),
@@ -248,6 +257,10 @@ module.exports = {
           files: manifestFiles
         };
       }
+    }),
+    new webpack.DefinePlugin({
+      PUBLIC_PATH: JSON.stringify(publicPath),
+      SITE_INFO: JSON.stringify(SITE_INFO)
     })
   ]
 };

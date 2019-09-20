@@ -53,7 +53,6 @@ export class ProxyHttp implements IProxyHttp {
       const param = path.join("/");
       url += "/" + param;
     }
-    debugger;
     return Axios.get(url, { params }).then<T>(this.fulfilled);
   }
   put<T, K>(api: string, data?: K, pathParams?: string[]): Promise<T> {

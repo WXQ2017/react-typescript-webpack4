@@ -13,7 +13,9 @@ export class Common implements ICommon {
   private configAdapter: IConfigAdapter;
   constructor() {
     if (!this.configAdapter) {
-      this.configAdapter = new ConfigAdapter(apiConfig, serverConfig);
+      if (!!apiConfig && !!serverConfig) {
+        this.configAdapter = new ConfigAdapter(apiConfig, serverConfig);
+      }
     }
   }
   public dealPath(apiKey = "", method = "GET"): string {

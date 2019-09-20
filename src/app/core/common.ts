@@ -1,11 +1,12 @@
 import { ISites, Env } from "../../lib/source";
 
+// webpack define
 declare var PUBLIC_PATH: string;
 declare var SITE_INFO: string;
 
 export default class Common {
   static getSiteInfo(): ISites {
-    const siteInfo: any = {};
+    const siteInfo: any = SITE_INFO;
     const o: any = {};
     o[Env.DEV] = siteInfo.DEV;
     o[Env.TEST] = siteInfo.TEST;
